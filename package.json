@@ -1,0 +1,17 @@
+{
+  "name": "textile-ts",
+  "version": "0.1.0",
+  "scripts": {
+    "check": "biome check src --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^2.1.1",
+    "@types/node": "^24.0.10",
+    "typescript": "^5.8.3"
+  }
+}
