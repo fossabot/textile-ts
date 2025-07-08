@@ -1,4 +1,4 @@
-![textile-logo](./textile-logo.svg)
+![textile-logo][textile-logo]
 # textile-ts
 
 [![Checked with Biome][biome-check]][biome] 
@@ -20,3 +20,4 @@ Please visit [here][textile-web]
 [borgar]: https://github.com/borgar
 [biome]: https://biomejs.dev
 [biome-check]: https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome
+[textile-logo]: https://github.com/phothinmg/textile-ts/blob/main/textile-logo.svg
