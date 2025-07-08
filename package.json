@@ -2,16 +2,31 @@
   "name": "textile-ts",
   "version": "0.1.0",
   "scripts": {
-    "check": "biome check src --write"
+    "build": "tsc --build --clean && tsc --build",
+    "check": "biome check src --write",
+    "format": "biome format src --write",
+    "test": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=tests/lcov.info",
+    "coverage:build": "lcov-viewer lcov -o ./docs/lcoview ./tests/lcov.info",
+    "docs:build": "typedoc && npm run coverage:build",
+    "deploy": "npm run docs:build && gh-pages -d docs",
+    "badge": "tsx tests/lcov.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "textile"
+  ],
+  "author": "Typescript implementation of textile-js",
+  "license": "Apache-2.0",
   "description": "",
   "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^2.1.1",
     "@types/node": "^24.0.10",
     "typescript": "^5.8.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   }
 }

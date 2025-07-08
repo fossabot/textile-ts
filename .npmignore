@@ -10,6 +10,8 @@ tests
 .github
 ## editor
 .vscode
+## assets
+textile-logo.svg
 # --------------- Local tests -------------------
 ## Js
 a.js

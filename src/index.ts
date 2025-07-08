@@ -1,2 +1,3 @@
-export * from "./lib/index.js";
-export * from "./lib/shares/types.js";
+import textileToJML from "./lib/index.js";
+
+export default textileToJML;
