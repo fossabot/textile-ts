@@ -66,7 +66,7 @@ export interface JsonMLAttributes {
 }
 export type JsonMLElement =
 	| [TagName, JsonMLAttributes | string | JsonMLElement]
-	| [TagName, JsonMLAttributes | string | JsonMLElement,string]
+	| [TagName, JsonMLAttributes | string | JsonMLElement, string]
 	| [TagName, JsonMLAttributes | string | JsonMLElement, ...JsonMLElement[]]
 	| [TagName, ...JsonMLElement[]];
 export type JsonMLNode = string | JsonMLElement;
