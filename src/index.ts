@@ -1,3 +1,3 @@
-import textileToJML from "./lib/index.js";
+import textileToJML from "./lib/text2html.js";
 
 export default textileToJML;
