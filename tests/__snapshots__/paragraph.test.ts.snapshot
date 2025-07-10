@@ -1,0 +1,111 @@
+exports[`Paragraph Tests > Aligned left paragraph 1`] = `
+{
+  "input": "p<. Aligned left paragraph",
+  "excepted": "<p style=\\"text-align:left;\\">Aligned left paragraph</p>",
+  "result": "<p style=\\"text-align:left;\\">Aligned left paragraph</p>"
+}
+`;
+
+exports[`Paragraph Tests > Aligned right paragraph. 1`] = `
+{
+  "input": "p>. Aligned right paragraph.",
+  "excepted": "<p style=\\"text-align:right;\\">Aligned right paragraph.</p>",
+  "result": "<p style=\\"text-align:right;\\">Aligned right paragraph.</p>"
+}
+`;
+
+exports[`Paragraph Tests > And a paragraph with a line break,when options.breaks === false 1`] = `
+{
+  "input": "p. And a paragraph with \\n a line break.",
+  "excepted": "<p>And a paragraph with \\n a line break.</p>",
+  "result": "<p>And a paragraph with \\n a line break.</p>"
+}
+`;
+
+exports[`Paragraph Tests > And a paragraph with a line break. Using 'p.' 1`] = `
+{
+  "input": "p. And a paragraph with \\n a line break.",
+  "excepted": "<p>And a paragraph with <br>\\n a line break.</p>",
+  "result": "<p>And a paragraph with <br>\\n a line break.</p>"
+}
+`;
+
+exports[`Paragraph Tests > And a paragraph with a line break. Without using 'p.' 1`] = `
+{
+  "input": "And a paragraph with \\n a line break.",
+  "excepted": "<p>And a paragraph with <br>\\n a line break.</p>",
+  "result": "<p>And a paragraph with <br>\\n a line break.</p>"
+}
+`;
+
+exports[`Paragraph Tests > Centered paragraph. 1`] = `
+{
+  "input": "p=. Centered paragraph.",
+  "excepted": "<p style=\\"text-align:center;\\">Centered paragraph.</p>",
+  "result": "<p style=\\"text-align:center;\\">Centered paragraph.</p>"
+}
+`;
+
+exports[`Paragraph Tests > Justified paragraph. 1`] = `
+{
+  "input": "p<>. Justified paragraph.",
+  "excepted": "<p style=\\"text-align:justify;\\">Justified paragraph.</p>",
+  "result": "<p style=\\"text-align:justify;\\">Justified paragraph.</p>"
+}
+`;
+
+exports[`Paragraph Tests > Left indent 1em. 1`] = `
+{
+  "input": "p(. Left indent 1em.",
+  "excepted": "<p style=\\"padding-left:1em;\\">Left indent 1em.</p>",
+  "result": "<p style=\\"padding-left:1em;\\">Left indent 1em.</p>"
+}
+`;
+
+exports[`Paragraph Tests > Paragraph with class and id 1`] = `
+{
+  "input": "p(foo bar #biz). Paragraph with class and id",
+  "excepted": "<p class=\\"foo bar\\" id=\\"biz\\">Paragraph with class and id</p>",
+  "result": "<p class=\\"foo bar\\" id=\\"biz\\">Paragraph with class and id</p>"
+}
+`;
+
+exports[`Paragraph Tests > Paragraph with language attribute 1`] = `
+{
+  "input": "p[fr]. Partir, c'est toujours mourir un peu.",
+  "excepted": "<p lang=\\"fr\\">Partir, c&#8217;est toujours mourir un peu.</p>",
+  "result": "<p lang=\\"fr\\">Partir, c&#8217;est toujours mourir un peu.</p>"
+}
+`;
+
+exports[`Paragraph Tests > Paragraph with style 1`] = `
+{
+  "input": "p{color:red;font-size:16px}. Paragraph with style",
+  "excepted": "<p style=\\"color:red;font-size:16px;\\">Paragraph with style</p>",
+  "result": "<p style=\\"color:red;font-size:16px;\\">Paragraph with style</p>"
+}
+`;
+
+exports[`Paragraph Tests > Right indent 1em. 1`] = `
+{
+  "input": "p). Right indent 1em.",
+  "excepted": "<p style=\\"padding-right:1em;\\">Right indent 1em.</p>",
+  "result": "<p style=\\"padding-right:1em;\\">Right indent 1em.</p>"
+}
+`;
+
+exports[`Paragraph Tests > Using 'p.' 1`] = `
+{
+  "input": "p. A paragraph.",
+  "excepted": "<p>A paragraph.</p>",
+  "result": "<p>A paragraph.</p>"
+}
+`;
+
+exports[`Paragraph Tests > Without using 'p.' 1`] = `
+{
+  "input": "A paragraph.",
+  "excepted": "<p>A paragraph.</p>",
+  "result": "<p>A paragraph.</p>"
+}
+`;

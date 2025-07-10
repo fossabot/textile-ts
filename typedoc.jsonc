@@ -1,0 +1,17 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPointStrategy": "expand",
+  "entryPoints": ["src/*"],
+  "out": "docs",
+  "headings": {
+    "readme": false,
+    "document": false
+  },
+  "favicon": "textile-logo.svg",
+  "name": "Textile Ts",
+  "plugin": [
+    "typedoc-plugin-rename-defaults",
+    "typedoc-plugin-include-example"
+  ],
+  "projectDocuments": ["documents/syntax.md"]
+}

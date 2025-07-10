@@ -1,4 +1,3 @@
-![textile-logo][textile-logo]
 # textile-ts
 
 [![Checked with Biome][biome-check]][biome] 
