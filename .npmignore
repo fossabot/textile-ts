@@ -30,5 +30,7 @@ aa.html
 bb.html
 # ---------------------- Build dirs ------------------
 docs
+.tshy
 # ----------------------- Local Notes ---------------
 textile
+note.md

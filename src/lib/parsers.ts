@@ -62,7 +62,7 @@ export function parseAttr(input: string, element: TagName, endToken?: string) {
 		return undefined;
 	}
 	let m: RegExpExecArray | null = null;
-	const st: Record<string, string> = {};
+	const st = <Record<string, string>>{};
 	const o = <JsonMLAttributes>{};
 	let remaining = input;
 	//
@@ -74,9 +74,10 @@ export function parseAttr(input: string, element: TagName, endToken?: string) {
 	//
 	do {
 		if ((m = regexp.reStyles.exec(remaining))) {
-			m[1].split(";").forEach((p) => {
+			m[1]?.split(";").forEach((p) => {
 				const d = p.match(regexp.reCSS);
 				if (d) {
+					//@ts-ignore
 					st[d[1]] = d[2];
 				}
 			});
@@ -108,11 +109,11 @@ export function parseAttr(input: string, element: TagName, endToken?: string) {
 				m = null;
 			} else {
 				//TODO lang in codeblock
-				const bits = m[1].split("#");
-				if (bits[0]) {
+				const bits = m[1]?.split("#");
+				if (bits?.[0]) {
 					o.class = bits[0].trimStart().trimEnd();
 				}
-				if (bits[1]) {
+				if (bits?.[1]) {
 					o.id = bits[1];
 				}
 				remaining = rm;
@@ -122,12 +123,12 @@ export function parseAttr(input: string, element: TagName, endToken?: string) {
 		//---
 		if (isBlock || isList) {
 			if ((m = regexp.rePaddingL.exec(remaining))) {
-				st["padding-left"] = `${m[1].length}em`;
+				st["padding-left"] = `${m[1]?.length}em`;
 				remaining = remaining.slice(m[0].length);
 				continue;
 			}
 			if ((m = regexp.rePaddingR.exec(remaining))) {
-				st["padding-right"] = `${m[1].length}em`;
+				st["padding-right"] = `${m[1]?.length}em`;
 				remaining = remaining.slice(m[0].length);
 				continue;
 			}
@@ -242,7 +243,7 @@ export function parseHtmlAttr(attrSrc: string) {
 	const attr = <JsonMLAttributes>{};
 	let m: RegExpExecArray | null = null;
 	while ((m = regexp.reAttr.exec(attrSrc))) {
-		attr[m[1]] =
+		attr[(m as RegExpExecArray)[1] as string] =
 			typeof m[2] === "string" ? m[2].replace(/^(["'])(.*)\1$/, "$2") : null;
 		attrSrc = attrSrc.slice(m[0].length);
 	}
@@ -284,7 +285,7 @@ export function tokenize(
 		if ((m = ReTests.testComment(src)) && oktag("!")) {
 			tokens.push({
 				type: "COMMENT",
-				data: m[1],
+				data: m[1] as string,
 				pos: ribbon.index(),
 				src: m[0],
 			});
@@ -322,7 +323,10 @@ export function tokenize(
 		// open/void tag
 		else if ((m = ReTests.testOpenTag(src)) && oktag(m[1] as TagName)) {
 			const token: OpenToken | SingleToken = {
-				type: m[3] || m[1] in Constants.singletons ? "SINGLE" : "OPEN",
+				type:
+					m[3] || ((m as RegExpExecArray)[1] as string) in Constants.singletons
+						? "SINGLE"
+						: "OPEN",
 				tag: m[1] as TagName,
 				pos: ribbon.index(),
 				src: m[0],
@@ -383,7 +387,7 @@ export function parseHtml(tokens: Token[], lazy?: any) {
 	let curr = root;
 	let token = <Token>{};
 	for (let i = 0; i < tokens.length; i++) {
-		token = tokens[i];
+		token = tokens[i] as Token;
 		if (token.type === "COMMENT") {
 			curr.push(["!", token.data]);
 		} else if (token.type === "TEXT" || token.type === "WS") {
@@ -401,7 +405,7 @@ export function parseHtml(tokens: Token[], lazy?: any) {
 			if (stack.length) {
 				for (let i = stack.length - 1; i >= 0; i--) {
 					const head = stack[i];
-					if (head[0] === token.tag) {
+					if (head?.[0] === token.tag) {
 						stack.splice(i);
 						curr = stack[stack.length - 1] || root;
 						break;
@@ -464,7 +468,7 @@ export function parseInline(src: string, options?: Options) {
 		if ((m = /^==(.*?)==/.exec(src))) {
 			ribbon.advance(m[0]);
 			ribbon.toString();
-			list.add(m[1]);
+			list.add((m as RegExpExecArray)[1] as JsonMLNode);
 			continue;
 		}
 		// --
@@ -497,13 +501,13 @@ export function parseInline(src: string, options?: Options) {
 				mMid = "^(.*?)";
 				mEnd = "(?:})";
 			} else {
-				const t1 = escape_sc(tok.charAt(0));
+				const t1 = escape_sc((tok as string).charAt(0));
 				mMid = code
 					? "^(\\S+|\\S+.*?\\S)"
 					: `^([^\\s${t1}]+|[^\\s${t1}].*?\\S(${t1}*))`;
 				mEnd = "(?=$|[\\s.,\"'!?;:()«»„“”‚‘’<>])";
 			}
-			const rx = compile(`${mMid}(${escape_sc(tok)})${mEnd}`);
+			const rx = compile(`${mMid}(${escape_sc(tok as string)})${mEnd}`);
 			if ((m = rx.exec(src)) && m[1]) {
 				ribbon.advance(m[0]);
 				src = ribbon.toString();
@@ -546,7 +550,7 @@ export function parseInline(src: string, options?: Options) {
 		if ((m = ReTests.testComment(src))) {
 			ribbon.advance(m[0]);
 			src = ribbon.toString();
-			list.add(["!", m[1]]);
+			list.add(["!", m[1] as JsonMLNode]);
 			continue;
 		}
 		// html tag
@@ -555,7 +559,8 @@ export function parseInline(src: string, options?: Options) {
 			ribbon.advance(m[0]);
 			src = ribbon.toString();
 			const tag = m[1] as TagName;
-			const single = m[3] || m[1] in Constants.singletons;
+			const single =
+				m[3] || ((m as RegExpExecArray)[1] as string) in Constants.singletons;
 			let element = [tag];
 			if (m[2]) {
 				element.push(parseHtmlAttr(m[2]) as any);
@@ -575,10 +580,12 @@ export function parseInline(src: string, options?: Options) {
 						element.push(m[1] as any);
 					} else if (tag === "notextile") {
 						// HTML is still parsed, even though textile is not
-						list.merge(parseHtml(tokenize(m[1])));
+						list.merge(parseHtml(tokenize(m?.[1] as string)));
 						continue;
 					} else {
-						element = element.concat(parseInline(m[1], options) as any);
+						element = element.concat(
+							parseInline(m?.[1] as string, options) as any,
+						);
 					}
 					list.add(element as JsonMLElement);
 					continue;
@@ -624,12 +631,17 @@ export function parseInline(src: string, options?: Options) {
 		) {
 			ribbon.advance(m[0]);
 			src = ribbon.toString();
-			let title: RegExpMatchArray | null | string = m[1].match(
+			let title: RegExpMatchArray | null | string = (m?.[1] as string).match(
 				regexp.reLinkTitle,
 			);
-			let inner = title ? m[1].slice(0, m[1].length - title[0].length) : m[1];
-			if ((pba = parseAttr(inner, "a"))) {
-				inner = inner.slice(pba[0]);
+			let inner = title
+				? (m?.[1] as string).slice(
+						0,
+						(m?.[1] as string).length - title[0].length,
+					)
+				: m[1];
+			if ((pba = parseAttr(inner as string, "a"))) {
+				inner = (inner as string).slice(pba[0]);
 				pba = pba[1];
 			} else {
 				pba = {};
@@ -648,7 +660,7 @@ export function parseInline(src: string, options?: Options) {
 			}
 			list.add(
 				["a", pba].concat(
-					parseInline(inner.replace(/^(\.?\s*)/, ""), options),
+					parseInline((inner as string).replace(/^(\.?\s*)/, ""), options),
 				) as JsonMLNode,
 			);
 			continue;
@@ -708,28 +720,28 @@ export function parseList(src: string, options?: _Options) {
 	let s: any = { ul: [] }; // Initialize s with a default structure
 	while ((m = regexp.reItem.exec(src))) {
 		const item = ["li"];
-		const destLevel = m[1].length;
-		const type = m[1].slice(-1) === "#" ? "ol" : "ul";
+		const destLevel = (m?.[1] as string).length;
+		const type = (m?.[1] as string).slice(-1) === "#" ? "ol" : "ul";
 		let newLi = null;
 		let lst;
 		let par;
 		let pba;
 		let r;
 		// list starts and continuations
-		if ((n = /^(_|\d+)/.exec(m[2]))) {
-			itemIndex = Number.isFinite(parseInt(n[1]))
-				? parseInt(n[1], 10)
+		if ((n = /^(_|\d+)/.exec(m?.[2] as string))) {
+			itemIndex = Number.isFinite(parseInt(n?.[1] as string))
+				? parseInt(n?.[1] as string, 10)
 				: lastIndex[destLevel] || currIndex[destLevel] || 1;
-			m[2] = m[2].slice(n[1].length);
+			m[2] = (m?.[2] as string).slice((n?.[1] as string).length);
 		}
 
-		if ((pba = parseAttr(m[2], "li"))) {
-			m[2] = m[2].slice(pba[0] as any);
+		if ((pba = parseAttr(m?.[2] as string, "li"))) {
+			m[2] = (m?.[2] as string).slice(pba[0] as any);
 			pba = pba[1];
 		}
 
 		// list control
-		if (/^\.\s*$/.test(m[2])) {
+		if (/^\.\s*$/.test(m?.[2] as string)) {
 			listAttr = pba || {};
 			ribbon.advance(m[0]);
 			src = ribbon.toString();
@@ -785,7 +797,10 @@ export function parseList(src: string, options?: _Options) {
 			par.li.push(pba);
 			par.att++;
 		}
-		Array.prototype.push.apply(par.li, parseInline(m[2].trim(), options));
+		Array.prototype.push.apply(
+			par.li,
+			parseInline((m?.[2] as string).trim(), options),
+		);
 
 		ribbon.advance(m[0]);
 		src = ribbon.toString();
@@ -850,12 +865,12 @@ export function fixLinks(ml: JsonMLNodes, dict: { [x: string]: any }) {
 export function parseColgroup(src: string) {
 	const colgroup = ["colgroup", {}];
 	src.split("|").forEach((s, isCol) => {
-		const col: Record<string, any> = isCol ? {} : colgroup[1];
+		const col: Record<string, any> = isCol ? {} : (colgroup[1] ?? {});
 		let d = s.trim();
 		let m;
 		if (d) {
 			if ((m = /^\\(\d+)/.exec(d))) {
-				col.span = +m[1];
+				col.span = +(m?.[1] as any);
 				d = d.slice(m[0].length);
 			}
 			if ((m = parseAttr(d, "col"))) {
@@ -926,7 +941,7 @@ export function parseTable(src: string, options?: any): Table {
 
 	if ((m = regexp.reHead.exec(_src.valueOf()))) {
 		_src.advance(m[0]);
-		pba = parseAttr(m[2], "table");
+		pba = parseAttr(m?.[2] as string, "table");
 		if (pba) {
 			merge(tAttr, pba[1]);
 		}
@@ -938,13 +953,13 @@ export function parseTable(src: string, options?: any): Table {
 	// caption
 	if ((m = regexp.reCaption.exec(_src.valueOf()))) {
 		caption = ["caption"];
-		if ((pba = parseAttr(m[1], "caption"))) {
+		if ((pba = parseAttr(m?.[1] as string, "caption"))) {
 			caption.push(pba[1]);
-			m[1] = m[1].slice(pba[0]);
+			m[1] = (m?.[1] as string).slice(pba[0]);
 		}
-		if (/\./.test(m[1])) {
+		if (/\./.test(m?.[1] as string)) {
 			caption.push(
-				m[1]
+				(m?.[1] as string)
 					.slice(1)
 					.replace(/\|\s*$/, "")
 					.trim(),
@@ -959,7 +974,7 @@ export function parseTable(src: string, options?: any): Table {
 	do {
 		// colgroup
 		if ((m = regexp.reColgroup.exec(_src.valueOf()))) {
-			colgroup = parseColgroup(m[1]);
+			colgroup = parseColgroup(m?.[1] as string);
 			extended++;
 		}
 		// "rowgroup" (tbody, thead, tfoot)
@@ -983,7 +998,7 @@ export function parseTable(src: string, options?: any): Table {
 				row.push(pba[1]);
 			}
 			tCurr?.push("\n\t\t", row);
-			inner = new Ribbon(m[3]);
+			inner = new Ribbon(m?.[3] as string);
 			do {
 				inner.save();
 				const th = inner.startsWith("_");
@@ -1031,7 +1046,7 @@ export function parseTable(src: string, options?: any): Table {
 			table.push("\n\t", tbody.concat(["\n\t"]));
 		});
 	} else {
-		table = table.concat(reIndent(rowgroups[0].slice(2), -1));
+		table = table.concat(reIndent((rowgroups?.[0] as RowGroup).slice(2), -1));
 	}
 	table.push("\n");
 	return table as Table;

@@ -2,7 +2,7 @@
   "name": "textile-ts",
   "version": "0.1.0",
   "scripts": {
-    "build": "tsc --build --clean && tsc --build",
+    "build": "tshy",
     "check": "biome check src --write",
     "format": "biome format src --write",
     "test": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=tests/lcov.info",
@@ -21,15 +21,22 @@
   "devDependencies": {
     "@biomejs/biome": "^2.1.1",
     "@types/node": "^24.0.10",
+    "tshy": "^3.0.2",
     "typescript": "^5.8.3"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
   "dependencies": {
-    "htmlparser2": "^10.0.0"
+    "highlight.js": "^11.11.1",
+    "htmlparser2": "^10.0.0",
+    "shiki": "^3.7.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "tshy": {
+    "exports": {
+      ".": "./src/index.ts",
+      "./highlight-visitor": "./src/highlightVisitor.ts"
+    },
+    "selfLink": false
   }
 }

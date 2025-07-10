@@ -24,7 +24,6 @@ import type {
 	Token,
 } from "./shares/types.js";
 
-//import parseTable from "./table.js";
 // ===================================================================================//
 
 const allowedBlocktags = {

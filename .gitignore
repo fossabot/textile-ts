@@ -18,5 +18,7 @@ bb.html
 # ---------------------- Build dirs ------------------
 dist
 docs
+.tshy
 # ----------------------- Local Notes ---------------
 textile
+note.md

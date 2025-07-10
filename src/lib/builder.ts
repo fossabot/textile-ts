@@ -78,7 +78,7 @@ class Builder {
 	}
 	merge(nodes: JsonMLNodes) {
 		for (let i = 0, l = nodes.length; i < l; i++) {
-			this.add(nodes[i]);
+			this.add(nodes[i] as JsonMLNode);
 		}
 		return this;
 	}

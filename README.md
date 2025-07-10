@@ -8,6 +8,11 @@
 Typescript implementation of [textile-js][textilejs]  by  [Borgar][borgar].
 
 
+
+
+
+
+
 ## Textile Syntax Guide
 
 Please visit [here][textile-web]

@@ -1,3 +1,16 @@
+export type HighlightFunction = (code: string, lang: string) => string;
+export interface JsonMLVisitor {
+	visitElement?: (
+		node: JsonMLElement,
+		index?: number,
+		parent?: JsonMLNodes | JsonMLElement,
+	) => void;
+	visitText?: (
+		node: string,
+		index?: number,
+		parent?: JsonMLNodes | JsonMLElement | JsonMLRoot,
+	) => void;
+}
 export interface Options {
 	breaks?: boolean;
 }
@@ -64,11 +77,14 @@ export interface JsonMLAttributes {
 	class?: string;
 	id?: string;
 }
+type MLPosOne = JsonMLAttributes | string | JsonMLElement;
 export type JsonMLElement =
-	| [TagName, JsonMLAttributes | string | JsonMLElement]
-	| [TagName, JsonMLAttributes | string | JsonMLElement, string]
-	| [TagName, JsonMLAttributes | string | JsonMLElement, ...JsonMLElement[]]
-	| [TagName, ...JsonMLElement[]];
+	| [TagName, ...MLPosOne[]]
+	| [TagName, MLPosOne, ...MLPosOne[]];
+//   | [TagName, JsonMLAttributes | string | JsonMLElement, string]
+//   | [TagName, JsonMLAttributes | string | JsonMLElement, ...JsonMLElement[]]
+//   | [TagName, JsonMLAttributes, ...JsonMLElement[]]
+//   | [TagName, ...JsonMLElement[]];
 export type JsonMLNode = string | JsonMLElement;
 export type JsonMLNodes = Array<string | JsonMLElement>;
 export type JsonMLRoot = [...JsonMLNodes];
