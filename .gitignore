@@ -1,0 +1,25 @@
+node_modules
+# --------------- Local tests -------------------
+## Js
+a.js
+b.cjs
+## TS
+aa.ts 
+bb.ts
+## textile
+a.textile
+b.textile
+## json
+aa.json
+bb.json
+## html
+aa.html
+bb.html
+# ---------------------- Build dirs ------------------
+dist
+docs
+.tshy
+documents
+# ----------------------- Local Notes ---------------
+textile
+note.md
