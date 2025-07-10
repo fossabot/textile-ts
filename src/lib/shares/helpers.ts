@@ -1,10 +1,10 @@
-import type { JsonMLNode, JsonMLNodes } from "./types.js";
 import elements from "./elements.js";
+import type { JsonMLNode, JsonMLNodes } from "./types.js";
 
 export const is_element = (node: JsonMLNode) =>
-  Array.isArray(node) && elements.includes(node[0]);
+	Array.isArray(node) && elements.includes(node[0]);
 export const has_child = (node: JsonMLNode) =>
-  Array.isArray(node) && node.some(is_element);
+	Array.isArray(node) && node.some(is_element);
 /**
  * Checks if `input` is a valid attribute object.
  *
@@ -17,10 +17,10 @@ export const has_child = (node: JsonMLNode) =>
  * - An empty object
  */
 export const isAttr = (input: any): boolean =>
-  typeof input === "object" &&
-  !Array.isArray(input) &&
-  input !== null &&
-  Object.keys(input).length > 0;
+	typeof input === "object" &&
+	!Array.isArray(input) &&
+	input !== null &&
+	Object.keys(input).length > 0;
 /**
  * Checks if a JsonML node represents a code block.
  *
@@ -31,10 +31,10 @@ export const isAttr = (input: any): boolean =>
  * object, and contains at least one child node with a tag name of `"code"`.
  */
 export const isCodeBlock = (node: JsonMLNode): boolean =>
-  Array.isArray(node) &&
-  node[0] === "pre" &&
-  isAttr(node[1]) &&
-  node.some((i) => Array.isArray(i) && i[0] === "code");
+	Array.isArray(node) &&
+	node[0] === "pre" &&
+	isAttr(node[1]) &&
+	node.some((i) => Array.isArray(i) && i[0] === "code");
 /**
  * Merges properties from object `b` into object `a`.
  * If `b` is provided, each key-value pair in `b` will overwrite
@@ -46,37 +46,37 @@ export const isCodeBlock = (node: JsonMLNode): boolean =>
  */
 
 export function merge(
-  a: Record<string, any>,
-  b?: Record<string, any>
+	a: Record<string, any>,
+	b?: Record<string, any>,
 ): Record<string, any> {
-  if (b) {
-    for (const k in b) {
-      a[k] = b[k];
-    }
-  }
-  return a;
+	if (b) {
+		for (const k in b) {
+			a[k] = b[k];
+		}
+	}
+	return a;
 }
 
 // drop or add tab levels to JsonML tree
 export function reIndent(ml: any[], shiftBy: any): JsonMLNodes {
-  // a bit obsessive, but there we are...
-  if (!shiftBy) {
-    return ml;
-  }
-  return ml.map((s) => {
-    if (/^\n\t+/.test(s)) {
-      if (shiftBy < 0) {
-        s = s.slice(0, shiftBy);
-      } else {
-        for (let i = 0; i < shiftBy; i++) {
-          s += "\t";
-        }
-      }
-    } else if (Array.isArray(s)) {
-      return reIndent(s, shiftBy);
-    }
-    return s;
-  });
+	// a bit obsessive, but there we are...
+	if (!shiftBy) {
+		return ml;
+	}
+	return ml.map((s) => {
+		if (/^\n\t+/.test(s)) {
+			if (shiftBy < 0) {
+				s = s.slice(0, shiftBy);
+			} else {
+				for (let i = 0; i < shiftBy; i++) {
+					s += "\t";
+				}
+			}
+		} else if (Array.isArray(s)) {
+			return reIndent(s, shiftBy);
+		}
+		return s;
+	});
 }
 /**
  * Escapes a string for HTML safety.
@@ -86,13 +86,13 @@ export function reIndent(ml: any[], shiftBy: any): JsonMLNodes {
  * @returns The escaped string.
  */
 export function escapeHTML(text: string, escapeQuotes?: boolean) {
-  return text
-    .replace(
-      /&(?!(#\d{2,}|#x[\da-fA-F]{2,}|[a-zA-Z][a-zA-Z1-4]{1,6});)/g,
-      "&amp;"
-    )
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, escapeQuotes ? "&quot;" : '"')
-    .replace(/'/g, escapeQuotes ? "&#39;" : "'");
+	return text
+		.replace(
+			/&(?!(#\d{2,}|#x[\da-fA-F]{2,}|[a-zA-Z][a-zA-Z1-4]{1,6});)/g,
+			"&amp;",
+		)
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, escapeQuotes ? "&quot;" : '"')
+		.replace(/'/g, escapeQuotes ? "&#39;" : "'");
 }

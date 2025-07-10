@@ -8,10 +8,10 @@
     "document": false
   },
   "favicon": "textile-logo.svg",
+  "navigationLinks": {
+    "Coverage": "https://phothinmg.github.io/textile-ts/lcoview/index.html"
+  },
   "name": "Textile Ts",
-  "plugin": [
-    "typedoc-plugin-rename-defaults",
-    "typedoc-plugin-include-example"
-  ],
+  "plugin": ["typedoc-plugin-rename-defaults"],
   "projectDocuments": ["documents/syntax.md"]
 }

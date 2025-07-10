@@ -17,7 +17,7 @@
   ],
   "author": "Pho Thin Mg <phothinmg@disroot.org>",
   "license": "Apache-2.0",
-  "description": "Typescript implementation of textile-js",
+  "description": "Implements and extends textile-js,Textile parser in JavaScript",
   "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^2.1.1",
@@ -49,5 +49,30 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/phothinmg/textile-ts.git"
-  }
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./highlight-visitor": {
+      "import": {
+        "types": "./dist/esm/highlightVisitor.d.ts",
+        "default": "./dist/esm/highlightVisitor.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/highlightVisitor.d.ts",
+        "default": "./dist/commonjs/highlightVisitor.js"
+      }
+    }
+  },
+  "main": "./dist/commonjs/index.js",
+  "types": "./dist/commonjs/index.d.ts",
+  "module": "./dist/esm/index.js"
 }

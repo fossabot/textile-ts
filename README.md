@@ -1,6 +1,6 @@
 # textile-ts
 
-[![Checked with Biome][biome-check]][biome] 
+[![Checked with Biome][biome-check]][biome] [![coverage][coverage]]()
 
 ## About 
 
@@ -19,6 +19,7 @@ Please visit [here][textile-web]
 
 <!-- Definition -->
 
+[coverage]: https://img.shields.io/badge/coverage-79.26-yellow?style=flat
 [textilejs]: https://github.com/borgar/textile-js
 [textile-web]: https://textile-lang.com/
 [borgar]: https://github.com/borgar
