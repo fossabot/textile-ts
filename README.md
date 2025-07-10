@@ -10,13 +10,6 @@ Typescript implementation of [textile-js][textilejs]  by  [Borgar][borgar].
 
 
 
-
-
-## Textile Syntax Guide
-
-Please visit [here][textile-web]
-
-
 <!-- Definition -->
 
 [coverage]: https://img.shields.io/badge/coverage-79.26-yellow?style=flat
