@@ -4,7 +4,9 @@
 
 ## About 
 
-Typescript implementation of [textile-js][textilejs]  by  [Borgar][borgar].
+**Textile-TS** : TypeScript implementation of [textile-js][textilejs] by [Borgar Þorsteinsson][borgar]
+
+This project adapts and extends the original textile-js parser for TypeScript.
 
 
 
