@@ -13,5 +13,5 @@
   },
   "name": "Textile Ts",
   "plugin": ["typedoc-plugin-rename-defaults"],
-  "projectDocuments": ["document/syntax.md"]
+  "projectDocuments": ["documents/syntax.md"]
 }
