@@ -168,7 +168,7 @@ export const regexp = {
 	reAttr: compile(
 		/^\s*([^=\s]+)(?:\s*=\s*("[^"]+"|'[^']+'|[^>\s]+))?/,
 	) as RegExp,
-	reComment: compile(/^<!--(.+?)-->/, "s") as RegExp,
+	reComment: compile(/^<!--([\s\S]*?)-->/, "s") as RegExp,
 	reEndTag: compile(/^<\/([:html_id:])([^>]*)>/) as RegExp,
 	reTag: compile(
 		/^<([:html_id:])((?:\s[^=\s/]+(?:\s*=\s*[:html_attr:])?)+)?\s*(\/?)>/,
