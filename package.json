@@ -5,7 +5,7 @@
     "build": "tshy",
     "check": "biome check src --write",
     "format": "biome format src --write",
-    "testreport": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=tests/lcov.info --test-update-snapshots",
+    "test:report": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=tests/lcov.info --test-update-snapshots",
     "coverage:build": "lcov-viewer lcov -o ./docs/lcoview ./tests/lcov.info",
     "docs:build": "typedoc && npm run coverage:build",
     "deploy": "npm run docs:build && gh-pages -d docs",

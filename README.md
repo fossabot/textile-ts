@@ -1,6 +1,6 @@
-# textile-ts
+# Textile Ts
 
-[![Checked with Biome][biome-check]][biome] [![coverage][coverage]]()
+[![coverage][coverage]][covg-url] [![Checked with Biome][biome-check]][biome] 
 
 ## About 
 
@@ -14,7 +14,8 @@ This project adapts and extends the original textile-js parser for TypeScript.
 
 <!-- Definition -->
 
-[coverage]: https://img.shields.io/badge/coverage-79.26-yellow?style=flat
+[coverage]: https://img.shields.io/badge/coverage-83.81-yellowgreen?style=flat
+[covg-url]: https://phothinmg.github.io/textile-ts/lcoview/index.html
 [textilejs]: https://github.com/borgar/textile-js
 [textile-web]: https://textile-lang.com/
 [borgar]: https://github.com/borgar
