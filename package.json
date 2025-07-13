@@ -17,7 +17,7 @@
   ],
   "author": "Pho Thin Mg <phothinmg@disroot.org>",
   "license": "Apache-2.0",
-  "description": "Implements and extends textile-js,Textile parser in JavaScript",
+  "description": "Textile parser in Typescript",
   "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^2.1.1",
