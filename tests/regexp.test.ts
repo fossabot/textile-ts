@@ -9,6 +9,8 @@ snapshot.setResolveSnapshotPath((testPath) => {
   return path.join(_dir, "__snapshots__", `${_baseName}.snapshot`);
 });
 
+describe("State A Block Test",()=>{})
+describe("State A Attributes Test",()=>{})
 describe("Block Level RegExp Safe Tests", () => {
   it("First Level Blocks", (t) => {
     const regexp =
