@@ -1,0 +1,15 @@
+exports[`Block Level RegExp Safe Tests > First Level Blocks 1`] = `
+{
+  "regexp": {},
+  "excepted": true,
+  "result": true
+}
+`;
+
+exports[`Block Level RegExp Safe Tests > Links Reference 1`] = `
+{
+  "regexp": {},
+  "excepted": true,
+  "result": true
+}
+`;
