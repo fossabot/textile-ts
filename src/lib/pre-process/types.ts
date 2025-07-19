@@ -9,7 +9,22 @@ export type StateABlockTypes =
   | "linkRef"
   | "preBlock"
   | "image"
-  | "anchorTag";
+  | "anchorTag"
+  | "lists"
+  | "definitionList"
+  | "footnoteDef"
+  | "noteList"
+  | "table"
+  | "break"
+  | "%bc%"
+  | "..bc"
+  | "$rm$"
+  | "imageLink"
+  | "html"
+  | "def-dd"
+  | "def-dt"
+  | "bulletedList"
+  | "orderedList";
 
 /**
  * Blocks signature of `Textile Syntax`
@@ -34,9 +49,11 @@ export interface StateABlockNode {
   lineIndex: number;
   type?: StateABlockTypes;
   dataString?: string;
-  rawSting?: string;
+  rawString?: string;
   linkRef?: { name: string; link: string };
   dotNotationCount?: number;
   signature?: BlocksSignature;
   attributes?: Record<string, any>;
+  blockTag?: string;
+  footNoteRef?: { num: number; refId: string; hrefId: string; symbol?: string };
 }

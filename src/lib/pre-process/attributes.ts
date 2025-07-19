@@ -1,4 +1,5 @@
 import { StateARegexp } from "./regexp.js";
+import type { BlocksSignature } from "./types.js";
 export interface StateAAttributes {
   className?: string[];
   styles?: string[];
@@ -6,6 +7,7 @@ export interface StateAAttributes {
   id?: string;
   href?: string;
   title?: string;
+  highlightLang?: string;
 }
 
 const stateAAlignAttrMap = {
@@ -17,19 +19,33 @@ const stateAAlignAttrMap = {
   "-": "vertical-align: middle",
   "~": "vertical-align: bottom",
 };
-
-const stateAAttributes = (str: string) => {
+const textTag = ["p", "h1", "h2", "h3", "h4", "h5", "h6"];
+const stateAAttributes = (str: string, tag?: BlocksSignature) => {
   if (str === "") return {};
-  let obj: StateAAttributes = {
+  const obj: StateAAttributes = {
     className: [],
     styles: [],
     lang: undefined,
     id: undefined,
+    highlightLang: undefined,
   };
 
   let remain = str;
   let m: RegExpExecArray | null = null;
   do {
+    // if ((m = /^(\)+\>)\.*/.exec(remain))) {
+    //   let num = m[1].slice(0, -1).length;
+    //   obj.styles!.push("text-align: right");
+    //   obj.styles!.push(`padding-right: ${num}em`);
+    //   remain = remain.slice(m[1].length);
+    //   continue;
+    // }
+    // if ((m = /^(\(+)\.*/.exec(remain))) {
+    //   let num = m[1].length;
+    //   obj.styles!.push(`padding-left: ${num}em`);
+    //   remain = remain.slice(m[1].length);
+    //   continue;
+    // }
     if ((m = StateARegexp.alignRe.exec(remain))) {
       obj.styles!.push(stateAAlignAttrMap[m[1]]);
       remain = remain.slice(m[0].length);
@@ -44,6 +60,9 @@ const stateAAttributes = (str: string) => {
             obj.id = d.slice(1);
           } else if (d.startsWith("*")) {
             obj.className!.push(`language-${d.slice(1)}`);
+            if (tag === "bc") {
+              obj.highlightLang = d.slice(1);
+            }
           } else {
             obj.className!.push(d);
           }
@@ -67,7 +86,6 @@ const stateAAttributes = (str: string) => {
     if ((m = StateARegexp.langRe.exec(remain))) {
       obj.lang = m[1];
       remain = remain.slice(m[0].length);
-      continue;
     }
   } while (m);
   return obj;
