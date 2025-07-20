@@ -16,7 +16,7 @@ import type {
   TagName,
   Token,
 } from "../shares/types.js";
-
+import { createFootnoteHashId, createFootnoteId } from "./helpers.js";
 // ========================================================================================================//
 
 /**
@@ -601,10 +601,11 @@ export function parseInline(src: string, options?: Options) {
       src = ribbon.toString();
       list.add([
         "sup",
-        { class: "footnote", id: `fnr${m[1]}` },
+        // `fnr${m[1]}`
+        { class: "footnote", id: createFootnoteId(m[1], true) },
         m[2] === "!"
-          ? m[1] // "!" suppresses the link
-          : ["a", { href: `#fn${m[1]}` }, m[1]],
+          ? m[1] // "!" suppresses the link `#fn${m[1]}`
+          : ["a", { href: createFootnoteHashId(m[1], false) }, m[1]],
       ] as any);
       continue;
     }
@@ -723,10 +724,10 @@ export function parseList(src: string, options?: _Options) {
     const destLevel = (m?.[1] as string).length;
     const type = (m?.[1] as string).slice(-1) === "#" ? "ol" : "ul";
     let newLi: null | string[] = null;
-    let lst;
-    let par;
-    let pba;
-    let r;
+    let lst: any;
+    let par: any;
+    let pba: any;
+    let r: any;
     // list starts and continuations
     if ((n = /^(_|\d+)/.exec(m?.[2] as string))) {
       itemIndex = Number.isFinite(parseInt(n?.[1] as string))

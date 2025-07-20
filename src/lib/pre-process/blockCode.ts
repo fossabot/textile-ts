@@ -99,3 +99,8 @@ export const blockCode = (input: string) => {
     oriLines,
   };
 };
+
+export const bc = (str: string): string =>
+  blockCode(str)
+    .newLines.filter((i) => i !== "..bc" && i !== "%bc%")
+    .join("\n");
