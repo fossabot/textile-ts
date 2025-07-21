@@ -1,6 +1,7 @@
 # Textile Ts
 
 ![textile-logo](./textile-logo.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fphothinmg%2Ftextile-ts.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fphothinmg%2Ftextile-ts?ref=badge_shield)
 
 _Still under development. Nothing export yet._
 
@@ -45,3 +46,6 @@ Please visit [here][textile-ts] .
 [textpattern]: https://textpattern.com/
 [markdown]: https://en.wikipedia.org/wiki/Markdown
 [textile-ts]: https://phothinmg.github.io/textile-ts/
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fphothinmg%2Ftextile-ts.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fphothinmg%2Ftextile-ts?ref=badge_large)
