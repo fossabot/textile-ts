@@ -43,8 +43,7 @@
   ],
   "tshy": {
     "exports": {
-      ".": "./src/index.ts",
-      "./highlight-visitor": "./src/highlightVisitor.ts"
+      ".": "./src/index.ts"
     },
     "selfLink": false
   },
